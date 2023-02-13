@@ -1,14 +1,14 @@
-import styled from "styled-components"
+import Header from "../Components/Header"
+import Footer from "../Components/Footer"
 
-export default function Browse() {
-   
+export default function Home() {
     return (
         <>
-            <Header/>
+            <Header />
             <main>
-                somthing
+                <h1>Somthing</h1>
             </main>
-            <Footer/>
+            <Footer />
         </>
     )
 }

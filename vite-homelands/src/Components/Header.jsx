@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Header() {
@@ -6,9 +7,15 @@ export default function Header() {
             <h1>HomeLands </h1>
             <nav>
                 <ul>
-                    <li>Forside</li>
-                    <li>Boliger til salg</li>
-                    <li>Login</li>
+                    <li>
+                        <Link to="/">Forside</Link>
+                    </li>
+                    <li>
+                        <Link to="/browse">Boliger til salg</Link>
+                    </li>
+                    <li>
+                        <Link to="/">Login</Link>
+                    </li>
                     <div>
                         <input type="text" />
                         <button>
@@ -28,5 +35,8 @@ const StyledHeader = styled.header`
     color: #ffffff;
     ul {
         display: flex;
+        list-style: none;
+        gap: 1rem;
+        margin: 0 1rem;
     }
 `
