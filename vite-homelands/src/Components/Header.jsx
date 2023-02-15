@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import { useLoginStore } from "../Hooks/useLoginStore"
 
 export default function Header() {
+    const { loggedIn, setLoggedIn, setLogOut, username, user } = useLoginStore()
     return (
         <StyledHeader>
             <h1>HomeLands </h1>
@@ -13,9 +15,7 @@ export default function Header() {
                     <li>
                         <Link to="/browse">Boliger til salg</Link>
                     </li>
-                    <li>
-                        <Link to="/login">Login</Link>
-                    </li>
+                    <li>{!loggedIn ? <Link to="/login">Login</Link> : <a onClick={() => setLogOut()}>logout</a>}</li>
                     <div>
                         <input type="text" placeholder="Indtast søgeord" />
                         <button>
