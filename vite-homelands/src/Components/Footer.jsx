@@ -12,8 +12,8 @@ export default function Footer() {
                 <p>Email: info@homelands.dk</p>
                 <p>Telefon: +45 1122 3344</p>
             </div>
-            <i>twitter</i>
-            <i>facebook</i>
+            <i class="fa-brands fa-square-twitter"></i>
+            <i class="fa-brands fa-square-facebook"></i>
         </SyledFooter>
     )
 }
