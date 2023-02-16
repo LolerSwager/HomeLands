@@ -11,25 +11,27 @@ export default function Home() {
             <Header />
             <main>
                 <StyledCardWrapper>
-                    {homelistmini.slice(0, 3).map((items) => (
-                        <StyledCard key={items.id}>
-                            <img src={items.images[0].filename.medium} alt={items.images[0].description} />
-                            <h3>{items.address}</h3>
-                            <p>
-                                <b>
-                                    {items.zipcode} {items.city}
-                                </b>
-                            </p>
-                            <p>{items.type}</p>
-                            <div>
-                                <span className="energy-lable">{items.energy_label_name}</span>
-                                <h4>
-                                    {items.num_rooms} Værlser, {items.floor_space} m^2
-                                </h4>
-                                <h4 className="price">{parseInt(items.price).toLocaleString("de-DK")} DKK</h4>
-                            </div>
-                        </StyledCard>
-                    ))}
+                    {homelistmini
+                        .slice(0, 3)
+                        .map((items) => (
+                            <StyledCard key={items.id}>
+                                <img src={items.images[0].filename.medium} alt={items.images[0].description} />
+                                <h3>{items.address}</h3>
+                                <p>
+                                    <b>
+                                        {items.zipcode} {items.city}
+                                    </b>
+                                </p>
+                                <p>{items.type}</p>
+                                <div>
+                                    <span className="energy-lable">{items.energy_label_name}</span>
+                                    <h4>
+                                        {items.num_rooms} Værlser, {items.floor_space} m^2
+                                    </h4>
+                                    <h4 className="price">{parseInt(items.price).toLocaleString("de-DK")} DKK</h4>
+                                </div>
+                            </StyledCard>
+                        ))}
                 </StyledCardWrapper>
                 <StyledContactForm>
                     <h2>Det siger kunderne:</h2>
