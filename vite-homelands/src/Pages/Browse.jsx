@@ -46,6 +46,7 @@ export default function Browse() {
 
 const StyledCardWrapper = styled.article`
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(3, 460px);
     grid-gap: 2rem;
     width: 100%;

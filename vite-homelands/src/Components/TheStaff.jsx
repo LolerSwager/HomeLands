@@ -30,6 +30,7 @@ const StyledeH2 = styled.h2`
 
 const StyledCardWrapper = styled.div`
     display: flex;
+    justify-content: center;
     gap: 10px;
     .staffCard {
         width: 262px;

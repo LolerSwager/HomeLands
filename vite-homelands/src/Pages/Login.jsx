@@ -66,6 +66,7 @@ export default function Browse() {
 }
 
 const StyledFrom = styled.form`
+    margin: 5rem 7rem;
     h2 {
         margin: 1rem 0;
     }
@@ -83,5 +84,6 @@ const StyledFrom = styled.form`
         padding: 0.7rem 1rem;
         border-radius: 7px;
         margin: 0 1rem 0 0;
+        
     }
 `
