@@ -6,15 +6,16 @@ import { useLoginStore } from "../Hooks/useLoginStore"
 import { useForm } from "react-hook-form"
 
 export default function Browse() {
-    const { loggedIn, setLoggedIn, setLogOut, username, user } = useLoginStore()
+    const { loggedIn, setLoggedIn, setLogOut, userinfo } = useLoginStore()
     const { register, handleSubmit } = useForm()
     const onSubmit = (submitData) => {
         const fetchResults = async () => {
             try {
                 const response = await appService.login(submitData.username, submitData.password)
 
-                console.log(response)
-                setLoggedIn(true, response.data.username, response.data.user)
+                console.log(response.data)
+                setLoggedIn(true, response.data)
+    
             } catch (error) {
                 console.error(error)
             }
@@ -52,9 +53,9 @@ export default function Browse() {
                     <StyledFrom>
                         <div>
                             <h2>
-                                Velkommen tilbage {user.firstname} {user.lastname}
+                                Velkommen tilbage {userinfo.user.firstname} {userinfo.user.lastname}
                             </h2>
-                            <p>du er på hold {user.class}</p>
+                            <p>du er på hold {userinfo.user.class}</p>
                         </div>
                         <button onClick={() => setLogOut()}>logout</button>
                     </StyledFrom>

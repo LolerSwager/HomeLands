@@ -1,4 +1,4 @@
-import create from "zustand"
+import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
 export const useLoginStore = create(
@@ -6,18 +6,16 @@ export const useLoginStore = create(
         (set) => {
             return {
                 loggedIn: false,
-                username: "",
-                user: "",
-                setLoggedIn: (loggedIn, username, user) => set((state) => ({ ...state, loggedIn, username, user })),
+                userinfo: "",
+                setLoggedIn: (loggedIn, user) => set((state) => ({ ...state, loggedIn, userinfo: user })),
                 setLogOut: () =>
                     set((state) => ({
                         ...state,
                         loggedIn: false,
-                        username: "",
-                        user: "",
+                        userinfo: "",
                     })),
             }
         },
-        { name: "user" /* , getStorage= () => localStorage()  */ }
+        { name: "token" /* , getStorage= () => localStorage()  */ }
     )
 )

@@ -14,8 +14,8 @@ export default function Footer() {
                     <p>Telefon: +45 1122 3344</p>
                 </section>
                 <section>
-                    <i class="fa-brands fa-square-twitter"></i>
-                    <i class="fa-brands fa-square-facebook"></i>
+                    <i className="fa-brands fa-square-twitter"></i>
+                    <i className="fa-brands fa-square-facebook"></i>
                 </section>
             </article>
         </SyledFooter>

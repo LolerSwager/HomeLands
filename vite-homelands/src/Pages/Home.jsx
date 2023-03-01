@@ -3,47 +3,49 @@ import Footer from "../Components/Footer"
 import Staff from "../Components/TheStaff"
 import { useGetList } from "../Hooks/useGetList"
 import styled from "styled-components"
+import { useLoginStore } from "../Hooks/useLoginStore"
+import Slider from "../Components/ImgSlider"
+import TestCard from "../Components/TestCard"
 
 export default function Home() {
-    const { state: homelistmini } = useGetList("homes", "items")
+    const { state: homelist } = useGetList("homes", "items")
+    
+    const { loggedIn } = useLoginStore()
+
     return (
         <>
             <Header />
             <main>
+                <Slider />
                 <StyledCardWrapper>
-                    {homelistmini
+                    {homelist
+                        .sort(() => Math.random() - 0.5)
                         .slice(0, 3)
                         .map((items) => (
-                            <StyledCard key={items.id}>
-                                <img src={items.images[0].filename.medium} alt={items.images[0].description} />
-                                <h3>{items.address}</h3>
-                                <p>
-                                    <b>
-                                        {items.zipcode} {items.city}
-                                    </b>
-                                </p>
-                                <p>{items.type}</p>
-                                <div>
-                                    <span className="energy-lable">{items.energy_label_name}</span>
-                                    <h4>
-                                        {items.num_rooms} Værlser, {items.floor_space} m^2
-                                    </h4>
-                                    <h4 className="price">{parseInt(items.price).toLocaleString("de-DK")} DKK</h4>
-                                </div>
-                            </StyledCard>
+                            <TestCard key={items.id} data={items} showheart={false} />
                         ))}
                 </StyledCardWrapper>
                 <StyledContactForm>
                     <h2>Det siger kunderne:</h2>
-                    <section>
-                        <h3>Fandt drømmehuset…</h3>
-                        <p>
-                            “HomeLands hjalp os med at finde vores drømmehus i 2018. Efter at vi havde prøvet to andre
-                            mæglere lykkedes det dem at sælge
-                            <br /> vores gamle hus på under tre måneder. Både service og pris var helt i top”
-                        </p>
-                        <h5>Anna Hattevej, August 2019</h5>
-                    </section>
+                    {!loggedIn ? (
+                        <section>
+                            <h3>Fandt drømmehuset…</h3>
+                            <p>
+                                “HomeLands hjalp os med at finde vores drømmehus i 2018. Efter at vi havde prøvet to
+                                andre mæglere lykkedes det dem at sælge
+                                <br /> vores gamle hus på under tre måneder. Både service og pris var helt i top”
+                            </p>
+                            <h5>Anna Hattevej, August 2019</h5>
+                        </section>
+                    ) : (
+                        <section>
+                            <form>
+                                <input type="text" />
+                                <textarea name="" id="" rows="7"></textarea>
+                                <button>Send</button>
+                            </form>
+                        </section>
+                    )}
                 </StyledContactForm>
                 <Staff />
             </main>
@@ -58,6 +60,7 @@ const StyledCardWrapper = styled.article`
     grid-template-columns: repeat(3, 460px);
     grid-gap: 2rem;
     width: 100%;
+    z-index: 1;
 `
 
 const StyledCard = styled.section`
@@ -107,5 +110,18 @@ const StyledContactForm = styled.article`
         width: 100%;
         height: 228px;
         background-color: #fed9c9;
+        form {
+            display: grid;
+            place-items: center;
+            gap: 0.5rem;
+            input,
+            textarea {
+                width: 350px;
+                padding: 0.3rem;
+            }
+            button {
+                padding: 0.3rem;
+            }
+        }
     }
 `

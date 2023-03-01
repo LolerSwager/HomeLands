@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { useLoginStore } from "../Hooks/useLoginStore"
 
 export default function Header() {
-    const { loggedIn, setLoggedIn, setLogOut, username, user } = useLoginStore()
+    const { loggedIn, setLogOut} = useLoginStore()
     return (
         <StyledHeader>
             <h1>HomeLands </h1>
@@ -19,7 +19,7 @@ export default function Header() {
                     <div>
                         <input type="text" placeholder="Indtast søgeord" />
                         <button>
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <i className="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
                 </ul>
