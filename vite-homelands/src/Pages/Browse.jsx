@@ -10,24 +10,20 @@ export default function Browse() {
     const { state: homelist } = useGetList("homes", "items")
 
     return (
-        <>
-            <Header />
-            <main>
-                <div>
-                    <h3>Boliger til salg</h3>
-                    <input type="text" />
-                    <select>
-                        <option value="somthing"></option>
-                    </select>
-                </div>
-                <StyledCardWrapper>
-                    {homelist.map((items) => (
-                        <TestCard key={items.id} data={items} showheart={true} />
-                    ))}
-                </StyledCardWrapper>
-            </main>
-            <Footer />
-        </>
+        <main>
+            <div>
+                <h3>Boliger til salg</h3>
+                <input type="text" />
+                <select>
+                    <option value="somthing"></option>
+                </select>
+            </div>
+            <StyledCardWrapper>
+                {homelist.map((items) => (
+                    <TestCard key={items.id} data={items} showheart={true} />
+                ))}
+            </StyledCardWrapper>
+        </main>
     )
 }
 

@@ -5,18 +5,17 @@ import "react-slideshow-image/dist/styles.css"
 import { useGetList } from "../Hooks/useGetList"
 
 const SliderContainer = styled.div`
-    * {
-        border: solid 1px red;
-    }
+   /*  position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; */
+    width: 100%;
     color: white;
     margin-top: 2em;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    position: relative;
     overflow: hidden;
     .react-slideshow-container {
         position: relative;
+        height: 30vh;
         button {
             margin: 3em;
             background-color: inherit;

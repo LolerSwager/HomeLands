@@ -33,6 +33,9 @@ const StyledHeader = styled.header`
     align-items: center;
     background-color: #000000;
     color: #ffffff;
+    h1{
+        background-color: orange;
+    }
     ul {
         display: flex;
         align-items: center;

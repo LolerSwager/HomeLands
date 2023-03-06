@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
+import { Alert } from "react-native-web"
 import styled from "styled-components"
 import AppService from "../Appservices/Appservice"
+import { useLoginStore } from "../Hooks/useLoginStore"
 
 export default function TestCard({ data, showheart }) {
     const { price, floor_space } = data
-
+    const { loggedIn } = useLoginStore()
     const [compare, setCompare] = useState()
 
     // checkFavorite samligner id fra favorite med det som er i listen
@@ -38,6 +40,7 @@ export default function TestCard({ data, showheart }) {
             <p>
                 {data.zipcode} {data.city}
             </p>
+            <p>{data.type}</p>
             {showheart === true ? (
                 <div>
                     {checkFavorite(data.id) ? (
@@ -47,10 +50,8 @@ export default function TestCard({ data, showheart }) {
                     )}
                 </div>
             ) : (
-                <p></p>
+                <i></i>
             )}
-
-            <p>{data.type}</p>
             <div>
                 <span className="energy-lable">{data.energy_label_name}</span>
                 <h4>
@@ -85,6 +86,9 @@ const StyledCard = styled.section`
         width: 400px;
         padding: 10px 0;
         gap: 1rem;
+        i {
+            font-size: 25px;
+        }
         h4 {
             font-size: 18px;
         }

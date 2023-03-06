@@ -6,51 +6,93 @@ import styled from "styled-components"
 import { useLoginStore } from "../Hooks/useLoginStore"
 import Slider from "../Components/ImgSlider"
 import TestCard from "../Components/TestCard"
+import { useForm } from "react-hook-form"
+import AppService from "../Appservices/Appservice"
 
 export default function Home() {
     const { state: homelist } = useGetList("homes", "items")
-    
-    const { loggedIn } = useLoginStore()
+    const { state: reviewslist } = useGetList("reviews", "items")
+    const { state: reviewslistinfo } = useGetList("reviews", "count")
+    const { loggedIn, userinfo } = useLoginStore()
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
 
+    const onSubmit = (submitData) => {
+        try {
+            AppService.post("reviews", {
+                title: submitData.title,
+                content: submitData.textarea,
+                user_id: userinfo.user_id,
+                active: true,
+                num_stars: 1,
+            })
+            alert(`Title: ${submitData.title} \n review: ${submitData.textarea}`)
+        } catch (error) {
+            console.error(error)
+        }
+    }
     return (
-        <>
-            <Header />
-            <main>
-                <Slider />
-                <StyledCardWrapper>
-                    {homelist
-                        .sort(() => Math.random() - 0.5)
-                        .slice(0, 3)
-                        .map((items) => (
-                            <TestCard key={items.id} data={items} showheart={false} />
-                        ))}
-                </StyledCardWrapper>
-                <StyledContactForm>
-                    <h2>Det siger kunderne:</h2>
-                    {!loggedIn ? (
-                        <section>
-                            <h3>Fandt drømmehuset…</h3>
-                            <p>
-                                “HomeLands hjalp os med at finde vores drømmehus i 2018. Efter at vi havde prøvet to
-                                andre mæglere lykkedes det dem at sælge
-                                <br /> vores gamle hus på under tre måneder. Både service og pris var helt i top”
-                            </p>
-                            <h5>Anna Hattevej, August 2019</h5>
+        <main>
+            <StyledCardWrapper>
+                {homelist
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map((items) => (
+                        <TestCard key={items.id} data={items} showheart={false} />
+                    ))}
+            </StyledCardWrapper>
+            <StyledContactForm>
+                <h2>Det siger kunderne: </h2>
+                {!loggedIn ? (
+                    reviewslist.slice(reviewslistinfo - 1, reviewslistinfo).map((items) => (
+                        <section key={items.id}>
+                            <h3>{items.title}</h3>
+                            <p>{items.content}</p>
+                            <h5>
+                                {items.user.firstname} {items.user.lastname},
+                                {" " +
+                                    new Date(parseInt(items.created * 1000)).toLocaleString("en-DK", {
+                                        month: "long",
+                                        year: "numeric",
+                                    })}
+                            </h5>
                         </section>
-                    ) : (
-                        <section>
-                            <form>
-                                <input type="text" />
-                                <textarea name="" id="" rows="7"></textarea>
-                                <button>Send</button>
-                            </form>
-                        </section>
-                    )}
-                </StyledContactForm>
-                <Staff />
-            </main>
-            <Footer />
-        </>
+                    ))
+                ) : (
+                    <section>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <h2>{userinfo.user.id}</h2>
+                            {errors.title?.type === "required" && (
+                                <p className="alert" role="alert">
+                                    {errors.title?.message}
+                                </p>
+                            )}
+                            <input
+                                {...register("title", {
+                                    required: "title er påkrævet",
+                                })}
+                                type="text"
+                                placeholder="title"
+                            />
+                            {errors.textarea?.type === "required" && (
+                                <p className="alert" role="alert">
+                                    {errors.textarea?.message}
+                                </p>
+                            )}
+                            <textarea
+                                {...register("textarea", { required: "du mangler at skrive en besked" })}
+                                placeholder="skriv en besked"
+                            />
+                            <button>send</button>
+                        </form>
+                    </section>
+                )}
+            </StyledContactForm>
+            <Staff />
+        </main>
     )
 }
 
@@ -60,7 +102,6 @@ const StyledCardWrapper = styled.article`
     grid-template-columns: repeat(3, 460px);
     grid-gap: 2rem;
     width: 100%;
-    z-index: 1;
 `
 
 const StyledCard = styled.section`
@@ -102,6 +143,10 @@ const StyledCard = styled.section`
 `
 
 const StyledContactForm = styled.article`
+    .alert {
+        color: red;
+        margin: 0 0 -0.3rem 0;
+    }
     text-align: center;
     section {
         display: flex;
